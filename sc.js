@@ -39,27 +39,21 @@ let paths = [];
         
         while(paths.length >= 1){
             let removed = positionsQueue.shift();
-            console.log(`removed: `, removed)
             let positions = calValidPositions(removed);
-            console.log(`positions: `, positions[0])
             if(positions === null)
-                return 'Unable to calculate!!!';
+                return '"Unable to calculate!!!"';
 
             paths[index+1]= [];
             let temp0;
-console.log('paths: ', paths.length)
-            if(paths.length === 1){
-                console.log('if statement executes..')
-                temp0 = paths[index];
+            if(paths.length === 2 && paths[1].length === 0){
+                temp0 = structuredClone(paths[index]);
             }else{
-                console.log('else block statement executes...')
                 let bol = false;
                 for(let arr of paths){
                     for(let item of arr){
                         let tem = item[item.length-1];
                         if(tem[0] === removed[0] && tem[1] === removed[1]){
                             temp0 = item;
-                            console.log('temp0: ', temp0)
                             bol = true;
                             break;
                         }
@@ -70,14 +64,12 @@ console.log('paths: ', paths.length)
             }
 
             for(let i=0; i<positions.length; ++i){
-                let temp = temp0;
-                console.log('temp: ', temp)
-                console.log('positions[i]: ', positions[i])
+                let temp = structuredClone(temp0);
                 temp.push(positions[i]);
                 paths[index+1].push(temp);
                 if(positions[i][0] === destination[0] && positions[i][1] === destination[1]){
-                    console.log(`returning value: `, temp); 
-                    return temp;
+                    let te = `You made it in ${(temp.length === 2)? temp.length:temp.length-1} moves! Here's your path:\n` + JSON.stringify(temp);
+                    return te;
                 }
             }
             positions.forEach(item => {
@@ -101,4 +93,4 @@ const needToAdd = [[+2, +1],
                     [+2, -1]
                 ];
 
-console.log(shortPath().knightMoves([0, 0], [1, 2]));
+console.log(shortPath().knightMoves([0, 0], [7, 7]));
