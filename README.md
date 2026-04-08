@@ -1,0 +1,1 @@
+knight treversel project, it means if we give the source position and the destination of the knight in the chess board, to this function (knightMove()) it will return the posible shortest paths to reach the destination.
